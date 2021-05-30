@@ -1,9 +1,28 @@
 import React from "react";
-import {PostsModel} from "../../models/PostModels";
+import {PostsPaginationModel} from "../../models/PostModels";
 import classNames from "classnames";
 import {NavLink} from "react-router-dom";
 
-const Pagination: React.FC<PostsModel> = (posts) => {
+const Pagination: React.FC<PostsPaginationModel> = (postsPagination) => {
+    let posts = postsPagination.posts
+    let firstPageUrl = "/posts?page=1";
+    let prevPageUrl = `/posts?page=${posts.pageNumber-1}`;
+    let nextPageUrl = `/posts?page=${posts.pageNumber+1}`;
+    let lastPageUrl = `/posts?page=${posts.totalPages}`;
+
+    if(postsPagination.tag) {
+        firstPageUrl += `&tag=${postsPagination.tag}`;
+        prevPageUrl += `&tag=${postsPagination.tag}`;
+        nextPageUrl += `&tag=${postsPagination.tag}`;
+        lastPageUrl += `&tag=${postsPagination.tag}`;
+    }
+
+    if(postsPagination.query) {
+        firstPageUrl += `&query=${postsPagination.query}`;
+        prevPageUrl += `&query=${postsPagination.query}`;
+        nextPageUrl += `&query=${postsPagination.query}`;
+        lastPageUrl += `&query=${postsPagination.query}`;
+    }
 
     return (
         <div>
@@ -14,25 +33,25 @@ const Pagination: React.FC<PostsModel> = (posts) => {
                         "page-item": true,
                         disabled: !posts.hasPrevious
                     })}>
-                        <NavLink className="page-link" to="/posts">First</NavLink>
+                        <NavLink className="page-link" to={`${firstPageUrl}`}>First</NavLink>
                     </li>
                     <li className={classNames({
                         "page-item": true,
                         disabled: !posts.hasPrevious
                     })}>
-                        <NavLink className="page-link" to={`/posts/page/${posts.pageNumber-1}`}>Previous</NavLink>
+                        <NavLink className="page-link" to={`${prevPageUrl}`}>Previous</NavLink>
                     </li>
                     <li className={classNames({
                         "page-item": true,
                         disabled: !posts.hasNext
                     })}>
-                        <NavLink className="page-link" to={`/posts/page/${posts.pageNumber+1}`}>Next</NavLink>
+                        <NavLink className="page-link" to={`${nextPageUrl}`}>Next</NavLink>
                     </li>
                     <li className={classNames({
                         "page-item": true,
                         disabled: !posts.hasNext
                     })}>
-                        <NavLink className="page-link" to={`/posts/page/${posts.totalPages}`}>Last</NavLink>
+                        <NavLink className="page-link" to={`${lastPageUrl}`}>Last</NavLink>
                     </li>
                 </ul>
             </nav>

@@ -17,3 +17,10 @@ export interface PostsModel {
     hasNext: boolean,
     hasPrevious: boolean;
 }
+
+export interface PostsPaginationModel {
+    tag?: string
+    query?: string
+    page?: number
+    posts: PostsModel
+}

@@ -15,9 +15,7 @@ const App = () => (
                 <Route path="/login" component={Login}/>
                 <Route path="/registration" component={Registration}/>
                 <Route path="/posts/new" component={NewPost}/>
-                <Route path="/posts/page/:page" render={(props) => (
-                    <Posts key={props.location.search} {...props}/>)
-                } />
+
                 <Route path="/posts" component={Posts} />
                 <Redirect exact path="/" to="/posts"/>
                 <Route path="*">

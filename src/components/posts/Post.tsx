@@ -5,7 +5,7 @@ import {PostModel} from "../../models/PostModels";
 const Post: React.FC<PostModel> = (post) => {
     const tags = post.tags.map(tag => {
         return (<span key={tag} style={{"fontSize": "20px"}}>
-                    <NavLink className="badge badge-primary" to={`/tags/${tag}`}>
+                    <NavLink className="badge badge-primary" to={`/posts?tag=${tag}`}>
                         {tag}
                     </NavLink>
                 &nbsp;
