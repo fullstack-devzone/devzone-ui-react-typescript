@@ -6,6 +6,7 @@ import Registration from "./pages/registration/Registration";
 import NavBar from "./components/layout/NavBar";
 import NewPost from "./pages/posts/NewPost";
 import NotFound from "./pages/error/NotFound";
+import UserProfile from "./pages/profile/UserProfile";
 
 const App = () => (
     <div className="App">
@@ -14,6 +15,7 @@ const App = () => (
             <Switch>
                 <Route path="/login" component={Login}/>
                 <Route path="/registration" component={Registration}/>
+                <Route path="/profile" component={UserProfile}/>
                 <Route path="/posts/new" component={NewPost}/>
 
                 <Route path="/posts" component={Posts} />

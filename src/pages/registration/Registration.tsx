@@ -12,7 +12,7 @@ const Registration = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleRegistration = (e: React.FormEvent) => {
         e.preventDefault();
         if (!name.trim() || !email.trim() || !password.trim()) {
             return;
@@ -35,7 +35,7 @@ const Registration = () => {
                     <h3>Registration Form</h3>
                 </div>
                 <div className="card-body">
-                    <form onSubmit={e => handleLogin(e)} className="row justify-content-center">
+                    <form onSubmit={e => handleRegistration(e)} className="row justify-content-center">
                         <div className="form-group col-md-10">
                             <label htmlFor="name">Name</label>
                             <InputText

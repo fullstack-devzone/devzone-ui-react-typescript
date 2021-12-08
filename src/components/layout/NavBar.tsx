@@ -23,7 +23,7 @@ const NavBar = () => {
                 <li className="nav-item dropdown">
                     <NavLink className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i className="fas fa-user"/> <span>{user.name}</span>
+                        <i className="fas fa-user"/> <span>{user.user.name}</span>
                     </NavLink>
                     <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <NavLink className="dropdown-item" to="/profile">

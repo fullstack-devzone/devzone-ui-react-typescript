@@ -1,6 +1,18 @@
 import {loadState, saveState, cleanState} from "../store/localStorage";
 import axios from "./axios-config";
 
+export interface LoginUserModel {
+
+    access_token: string,
+    user: UserModel
+}
+
+export interface UserModel {
+    id: number,
+    name: string,
+    email: string,
+    roles: string[]
+}
 export default class AuthService {
 
     performLogin = (credentials: {}) => {
@@ -15,7 +27,7 @@ export default class AuthService {
             });
     }
 
-    setCurrentUser = (user: {}) => {
+    setCurrentUser = (user: LoginUserModel) => {
         const state = loadState()
         const newState = {
             ...state,
@@ -24,7 +36,7 @@ export default class AuthService {
         saveState(newState);
     }
 
-    getCurrentUser = () => {
+    getCurrentUser = (): LoginUserModel => {
         const state = loadState()
         return state.user || {};
     }
