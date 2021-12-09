@@ -1,5 +1,5 @@
 
-export interface PostModel {
+export interface LinkModel {
     id: number,
     title: string,
     url: string,
@@ -7,8 +7,8 @@ export interface PostModel {
     description: string
 }
 
-export interface PostsModel {
-    data: PostModel[],
+export interface LinksModel {
+    data: LinkModel[],
     totalElements: number,
     pageNumber: number,
     totalPages: number,
@@ -18,9 +18,9 @@ export interface PostsModel {
     hasPrevious: boolean;
 }
 
-export interface PostsPaginationModel {
+export interface LinksPaginationModel {
     tag?: string
     query?: string
     page?: number
-    posts: PostsModel
+    links: LinksModel
 }

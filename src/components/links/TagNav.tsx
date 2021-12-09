@@ -16,7 +16,7 @@ const TagNav :React.FC<TagList> = (tagList) => {
             <div className="list-group list-group-flush">
                 {tagList.tags.map(tag => {
                     return(
-                        <NavLink to={`/posts?tag=${tag.name}`} key={tag.id}
+                        <NavLink to={`/links?tag=${tag.name}`} key={tag.id}
                            className="list-group-item list-group-item-action badge badge-primary"
                         >
                             <i className="fas fa-tag"/>&nbsp;

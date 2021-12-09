@@ -16,8 +16,8 @@ const NavBar = () => {
         authenticatedLinks = (
             <ul className="navbar-nav">
                 <li className="nav-item">
-                    <NavLink className="nav-link" to="/posts/new">
-                        <i className="fas fa-plus-circle"/> Add
+                    <NavLink className="nav-link" to="/links/new">
+                        <i className="fas fa-plus-circle"/> Add Link
                     </NavLink>
                 </li>
                 <li className="nav-item dropdown">
@@ -26,11 +26,6 @@ const NavBar = () => {
                         <i className="fas fa-user"/> <span>{user.user.name}</span>
                     </NavLink>
                     <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <NavLink className="dropdown-item" to="/profile">
-                            <i className="fas fa-address-card"/> My Profile
-                        </NavLink>
-                        <div className="dropdown-divider"/>
-
                         <NavLink className="dropdown-item" to="/logout" onClick={logoutHandler}>
                             <i className="fas fa-sign-out-alt"/> Logout
                         </NavLink>

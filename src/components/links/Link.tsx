@@ -1,11 +1,11 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
-import {PostModel} from "../../models/PostModels";
+import {LinkModel} from "../../models/LinkModels";
 
-const Post: React.FC<PostModel> = (post) => {
-    const tags = post.tags.map(tag => {
+const Link: React.FC<LinkModel> = (link) => {
+    const tags = link.tags.map(tag => {
         return (<span key={tag} style={{"fontSize": "20px"}}>
-                    <NavLink className="badge badge-primary" to={`/posts?tag=${tag}`}>
+                    <NavLink className="badge badge-primary" to={`/links?tag=${tag}`}>
                         {tag}
                     </NavLink>
                 &nbsp;
@@ -14,7 +14,7 @@ const Post: React.FC<PostModel> = (post) => {
     return (
         <div className="alert alert-primary" role="alert">
             <h3 className="alert-heading">
-                <a href={post.url} target="_blank" rel="noopener noreferrer">{post.title}</a>
+                <a href={link.url} target="_blank" rel="noopener noreferrer">{link.title}</a>
             </h3>
             <p className="mb-0">
                 {tags}
@@ -23,4 +23,4 @@ const Post: React.FC<PostModel> = (post) => {
     );
 }
 
-export default Post;
+export default Link;

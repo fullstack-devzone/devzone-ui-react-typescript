@@ -1,32 +1,32 @@
 import React, {useState} from "react";
 import {InputText} from "primereact/inputtext";
-import PostService from "../../services/PostService";
-import {PostModel} from "../../models/PostModels";
+import LinkService from "../../services/LinkService";
+import {LinkModel} from "../../models/LinkModels";
 
-const NewPost = () => {
-    const postService = new PostService();
-    let postModel: PostModel = {description: "", id: 0, tags: [], title: "", url: ""};
-    const [newPost, setNewPost] = useState(postModel);
+const NewLink = () => {
+    const linkService = new LinkService();
+    let linkModel: LinkModel = {description: "", id: 0, tags: [], title: "", url: ""};
+    const [newLink, setNewLink] = useState(linkModel);
     const [tags, setTags] = useState("");
 
-    const handleCreatePost = (e: React.FormEvent) => {
+    const handleCreateLink = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!newPost.title.trim() || !newPost.url.trim()) {
+        if (!newLink.title.trim() || !newLink.url.trim()) {
             return;
         }
         if ( tags !== "") {
-            let postTags = tags.split(",")
-            console.log("postTags", postTags)
-            newPost.tags = postTags
+            let linkTags = tags.split(",")
+            console.log("linkTags", linkTags)
+            newLink.tags = linkTags
         }
-        postService.createPost(newPost)
+        linkService.createLink(newLink)
             .then((response) => {
-                console.log("create post success", response);
+                console.log("create link success", response);
                 window.location.href = "/";
             })
             .catch(e => {
-                console.log("create post error", e);
-                alert('Failed to create post, try again')
+                console.log("create link error", e);
+                alert('Failed to create link, try again')
             });
     };
 
@@ -34,17 +34,17 @@ const NewPost = () => {
         <div className="container col-md-4">
             <div className="card">
                 <div className="card-header text-center">
-                    <h3>New Post Form</h3>
+                    <h3>New Link Form</h3>
                 </div>
                 <div className="card-body">
-                    <form onSubmit={e => handleCreatePost(e)} className="row justify-content-center">
+                    <form onSubmit={e => handleCreateLink(e)} className="row justify-content-center">
                         <div className="form-group col-md-10">
                             <label htmlFor="title">Title</label>
                             <InputText
                                 id="title"
                                 className="form-control col-md-12"
-                                value={newPost.title}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewPost({...newPost, title: e.target.value})}
+                                value={newLink.title}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewLink({...newLink, title: e.target.value})}
                             />
                         </div>
                         <div className="form-group col-md-10">
@@ -52,8 +52,8 @@ const NewPost = () => {
                             <InputText
                                 id="url"
                                 className="form-control col-md-12"
-                                value={newPost.url}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewPost({...newPost, url: e.target.value})}
+                                value={newLink.url}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewLink({...newLink, url: e.target.value})}
                             />
                         </div>
                         <div className="form-group col-md-10">
@@ -76,4 +76,4 @@ const NewPost = () => {
         </div>
     );
 };
-export default NewPost;
+export default NewLink;

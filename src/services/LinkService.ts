@@ -1,12 +1,12 @@
 import axios from "./axios-config";
-import {PostModel} from "../models/PostModels";
+import {LinkModel} from "../models/LinkModels";
 
-export default class PostService {
+export default class LinkService {
     fetchTags = () => {
         return axios.get("/tags");
     }
 
-    fetchPosts = (page: number, tag: string, query: string) => {
+    fetchLinks = (page: number, tag: string, query: string) => {
         let url = `/links?page=${page}`;
         if(tag) {
             url += `&tag=${tag}`;
@@ -17,11 +17,11 @@ export default class PostService {
        return axios.get(url);
     }
 
-    fetchPostsByTag = (tag:string, page: number) => {
+    fetchLinksByTag = (tag:string, page: number) => {
         return axios.get(`/links?tag=${tag}&page=${page}`);
     }
 
-    createPost = (post: PostModel) => {
-        return axios.post("/links", post);
+    createLink = (link: LinkModel) => {
+        return axios.post("/links", link);
     }
 }

@@ -1,24 +1,24 @@
 import React, {useState, useEffect} from "react";
 
-import PostService from '../../services/PostService';
-import PostList from "../../components/posts/PostList";
-import TagNav from "../../components/posts/TagNav";
-import {PostsModel, PostsPaginationModel} from "../../models/PostModels";
-import Search from "../../components/posts/Search";
-import Pagination from "../../components/posts/Pagination";
+import LinkService from '../../services/LinkService';
+import LinkList from "../../components/links/LinkList";
+import TagNav from "../../components/links/TagNav";
+import {LinksModel, LinksPaginationModel} from "../../models/LinkModels";
+import Search from "../../components/links/Search";
+import Pagination from "../../components/links/Pagination";
 import { useHistory, RouteComponentProps} from "react-router-dom";
 
-type PostsState = {
+type LinksState = {
     tag?: string
     query?: string
     page?: number
 }
 
-type PostsProps = RouteComponentProps<{}, {}, PostsState>;
+type LinksProps = RouteComponentProps<{}, {}, LinksState>;
 
-const Posts : React.FC<PostsProps> = ( props ) => {
+const Links : React.FC<LinksProps> = (props ) => {
     const history = useHistory();
-    const postService = new PostService();
+    const linkService = new LinkService();
 
     const queryParams = new URLSearchParams(props.location.search);
 
@@ -31,7 +31,7 @@ const Posts : React.FC<PostsProps> = ( props ) => {
     //console.log("query:", query)
     //console.log("tag:", tag)
 
-    const initialValue: PostsModel = {
+    const initialValue: LinksModel = {
         hasNext: false,
         hasPrevious: false,
         isFirst: false,
@@ -40,16 +40,16 @@ const Posts : React.FC<PostsProps> = ( props ) => {
         totalElements: 0,
         totalPages: 0,
         data: []}
-    const [posts, setPosts] = useState(initialValue)
+    const [links, setLinks] = useState(initialValue)
     const [tags, setTags] = useState([])
-    let postsPaginationModel : PostsPaginationModel = {
+    let linksPaginationModel : LinksPaginationModel = {
         page: page,
         tag: tag,
         query: query,
-        posts: posts || {}
+        links: links || {}
     }
     useEffect(() => {
-        postService.fetchTags()
+        linkService.fetchTags()
             .then(response => {
                 setTags(response.data)
             })
@@ -59,17 +59,17 @@ const Posts : React.FC<PostsProps> = ( props ) => {
     }, []);
 
     useEffect(() => {
-        postService.fetchPosts(page, tag, query)
+        linkService.fetchLinks(page, tag, query)
             .then(response => {
-                setPosts({...response.data})
+                setLinks({...response.data})
             })
             .catch(e => {
-                alert('Failed to get posts')
+                alert('Failed to get links')
             });
     }, [page, tag, query]);
 
     const searchHandler = (query: string) => {
-        history.push(`/posts?query=${query}`);
+        history.push(`/links?query=${query}`);
     }
     return (
         <div className="row">
@@ -78,9 +78,9 @@ const Posts : React.FC<PostsProps> = ( props ) => {
                     <div className="row">
                         <div className="offset-1 col-8">
                             <Search ClickHandler={searchHandler}/>
-                            <Pagination {...postsPaginationModel} />
-                            <PostList {...posts}/>
-                            <Pagination {...postsPaginationModel} />
+                            <Pagination {...linksPaginationModel} />
+                            <LinkList {...links}/>
+                            <Pagination {...linksPaginationModel} />
                         </div>
                         <div className="col-3">
                             <TagNav tags={tags}/>
@@ -92,4 +92,4 @@ const Posts : React.FC<PostsProps> = ( props ) => {
     );
 };
 
-export default Posts;
+export default Links;
