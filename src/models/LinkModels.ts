@@ -3,8 +3,7 @@ export interface LinkModel {
     id: number,
     title: string,
     url: string,
-    tags: string[],
-    description: string
+    tags: string[]
 }
 
 export interface LinksModel {

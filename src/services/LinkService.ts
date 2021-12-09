@@ -1,4 +1,4 @@
-import axios from "./axios-config";
+import axios from "./AxiosConfig";
 import {LinkModel} from "../models/LinkModels";
 
 export default class LinkService {
@@ -15,10 +15,6 @@ export default class LinkService {
             url += `&query=${query}`;
         }
        return axios.get(url);
-    }
-
-    fetchLinksByTag = (tag:string, page: number) => {
-        return axios.get(`/links?tag=${tag}&page=${page}`);
     }
 
     createLink = (link: LinkModel) => {

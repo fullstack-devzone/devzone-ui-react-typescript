@@ -5,7 +5,7 @@ import {LinkModel} from "../../models/LinkModels";
 
 const NewLink = () => {
     const linkService = new LinkService();
-    let linkModel: LinkModel = {description: "", id: 0, tags: [], title: "", url: ""};
+    let linkModel: LinkModel = {id: 0, tags: [], title: "", url: ""};
     const [newLink, setNewLink] = useState(linkModel);
     const [tags, setTags] = useState("");
 

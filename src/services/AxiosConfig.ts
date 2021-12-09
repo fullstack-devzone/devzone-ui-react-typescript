@@ -1,16 +1,13 @@
 import axios from "axios";
-import { getAccessToken, cleanState } from "../store/localStorage";
+import { getAccessToken, cleanState } from "../store/LocalStorage";
 
 const instance = axios.create();
 const localApiUrl = "http://localhost:8080/api";
 
-let apiUrl = process.env.REACT_APP_API_BASE_URL;
-console.log("REACT_APP_API_BASE_URL from env: " + apiUrl);
-apiUrl = apiUrl || localApiUrl;
-console.log("Effective REACT_APP_API_BASE_URL from env: " + apiUrl);
+let apiUrl = process.env.REACT_APP_API_BASE_URL || localApiUrl;
+console.log("REACT_APP_API_BASE_URL : " + apiUrl);
 instance.defaults.baseURL = apiUrl;
 
-// Set the AUTH token for any request
 instance.interceptors.request.use(function(config) {
     const accessToken = getAccessToken();
     if (!config.headers.Authorization && accessToken) {
@@ -19,7 +16,6 @@ instance.interceptors.request.use(function(config) {
     return config;
 });
 
-// Add a response interceptor
 instance.interceptors.response.use(
     function(response) {
         return response;

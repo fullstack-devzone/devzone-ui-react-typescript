@@ -1,9 +1,8 @@
-import {loadState, saveState, cleanState} from "../store/localStorage";
-import axios from "./axios-config";
+import axios from "./AxiosConfig";
+import {cleanState, loadState, saveState} from "../store/LocalStorage";
 
 export interface LoginUserModel {
-
-    access_token: string,
+    access_token: string
     user: UserModel
 }
 
