@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {InputText} from "primereact/inputtext";
 import LinkService from "../../services/LinkService";
 import {LinkModel} from "../../models/LinkModels";
 
@@ -31,41 +30,42 @@ const NewLink = () => {
     };
 
     return (
-        <div className="container col-md-4">
+        <div className="container col-md-6">
             <div className="card">
                 <div className="card-header text-center">
                     <h3>New Link Form</h3>
                 </div>
                 <div className="card-body">
-                    <form onSubmit={e => handleCreateLink(e)} className="row justify-content-center">
-                        <div className="form-group col-md-10">
-                            <label htmlFor="title">Title</label>
-                            <InputText
+                    <form onSubmit={e => handleCreateLink(e)}>
+                        <div className="mb-3">
+                            <label htmlFor="title" className="form-label">Title</label>
+                            <input
                                 id="title"
                                 className="form-control col-md-12"
                                 value={newLink.title}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewLink({...newLink, title: e.target.value})}
                             />
+
                         </div>
-                        <div className="form-group col-md-10">
-                            <label htmlFor="url">URL</label>
-                            <InputText
+                        <div className="mb-3">
+                            <label htmlFor="url" className="form-label">URL</label>
+                            <input
                                 id="url"
                                 className="form-control col-md-12"
                                 value={newLink.url}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewLink({...newLink, url: e.target.value})}
                             />
                         </div>
-                        <div className="form-group col-md-10">
-                            <label htmlFor="tags">Tags</label>
-                            <InputText
+                        <div className="mb-3">
+                            <label htmlFor="tags" className="form-label">Tags</label>
+                            <input
                                 id="tags"
                                 className="form-control col-md-12"
                                 value={tags}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTags(e.target.value)}
                             />
                         </div>
-                        <div className="form-group col-md-10">
+                        <div className="mb-3">
                             <button type="submit" className="btn btn-primary">
                                 Save
                             </button>

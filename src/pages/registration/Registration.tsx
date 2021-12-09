@@ -1,7 +1,5 @@
 import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
-import {InputText} from "primereact/inputtext";
-import {Password} from "primereact/password";
 import UserService from "../../services/UserService";
 
 const Registration = () => {
@@ -36,36 +34,36 @@ const Registration = () => {
                 </div>
                 <div className="card-body">
                     <form onSubmit={e => handleRegistration(e)} className="row justify-content-center">
-                        <div className="form-group col-md-10">
-                            <label htmlFor="name">Name</label>
-                            <InputText
+                        <div className="mb-3">
+                            <label htmlFor="name" className="form-label">Name</label>
+                            <input
                                 id="name"
                                 className="form-control col-md-12"
                                 value={name}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
                             />
                         </div>
-                        <div className="form-group col-md-10">
-                            <label htmlFor="email">Email</label>
-                            <InputText
+                        <div className="mb-3">
+                            <label htmlFor="email" className="form-label">Email</label>
+                            <input
                                 id="email"
-                                keyfilter="email"
+                                type="email"
                                 className="form-control col-md-12"
                                 value={email}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                             />
                         </div>
-                        <div className="form-group col-md-10">
-                            <label htmlFor="password">Password</label>
-                            <Password
+                        <div className="mb-3">
+                            <label htmlFor="password" className="form-label">Password</label>
+                            <input
                                 id="password"
                                 className="form-control col-md-12"
-                                feedback={false}
+                                type="password"
                                 value={password}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                             />
                         </div>
-                        <div className="form-group col-md-10">
+                        <div className="mb-3">
                             <button type="submit" className="btn btn-primary">
                                 Register
                             </button>

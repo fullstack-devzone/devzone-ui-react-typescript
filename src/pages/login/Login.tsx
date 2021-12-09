@@ -1,6 +1,4 @@
 import React, {useState} from "react";
-import {InputText} from "primereact/inputtext";
-import {Password} from "primereact/password";
 import AuthService from "../../services/AuthService";
 
 const Login = () => {
@@ -32,28 +30,28 @@ const Login = () => {
                     <h3>Login Form</h3>
                 </div>
                 <div className="card-body">
-                    <form onSubmit={e => handleLogin(e)} className="row justify-content-center">
-                        <div className="form-group col-md-10">
-                            <label htmlFor="email">Email</label>
-                            <InputText
+                    <form onSubmit={e => handleLogin(e)} >
+                        <div className="mb-3">
+                            <label htmlFor="email" className="form-label">Email</label>
+                            <input
                                 id="email"
-                                keyfilter="email"
+                                type="email"
                                 className="form-control col-md-12"
                                 value={username}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
                             />
                         </div>
-                        <div className="form-group col-md-10">
-                            <label htmlFor="password">Password</label>
-                            <Password
+                        <div className="mb-3">
+                            <label htmlFor="password" className="form-label">Password</label>
+                            <input
                                 id="password"
                                 className="form-control col-md-12"
-                                feedback={false}
+                                type="password"
                                 value={password}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                             />
                         </div>
-                        <div className="form-group col-md-10">
+                        <div className="mb-3">
                             <button type="submit" className="btn btn-primary">
                                 Login
                             </button>

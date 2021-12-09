@@ -14,7 +14,7 @@ const NavBar = () => {
     const user = authService.getCurrentUser();
     if (user.access_token) {
         authenticatedLinks = (
-            <ul className="navbar-nav">
+            <ul className="navbar-nav mb-2 mb-md-0">
                 <li className="nav-item">
                     <NavLink className="nav-link" to="/links/new">
                         <i className="fas fa-plus-circle"/> Add Link
@@ -22,10 +22,10 @@ const NavBar = () => {
                 </li>
                 <li className="nav-item dropdown">
                     <NavLink className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i className="fas fa-user"/> <span>{user.user.name}</span>
                     </NavLink>
-                    <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <div className="dropdown-menu">
                         <NavLink className="dropdown-item" to="/logout" onClick={logoutHandler}>
                             <i className="fas fa-sign-out-alt"/> Logout
                         </NavLink>
@@ -35,7 +35,7 @@ const NavBar = () => {
         );
     } else {
         authenticatedLinks = (
-            <ul className="navbar-nav">
+            <ul className="navbar-nav mb-2 mb-md-0">
                 <li className="nav-item">
                     <NavLink className="nav-link" to="/login">
                         Login
@@ -50,21 +50,23 @@ const NavBar = () => {
         );
     }
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-            <NavLink className="navbar-brand" to="/">
-                DevZone
-            </NavLink>
-            <button className="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"/>
-            </button>
+        <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+            <div className="container">
+                <NavLink className="navbar-brand" to="/">
+                    DevZone
+                </NavLink>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
 
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav mr-auto">
+                <div className="collapse navbar-collapse" id="navbarCollapse">
+                    <ul className="navbar-nav me-auto mb-2 mb-md-0">
 
-                </ul>
-                {authenticatedLinks}
+                    </ul>
+                    {authenticatedLinks}
+                </div>
             </div>
         </nav>
     );

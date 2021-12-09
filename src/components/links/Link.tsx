@@ -5,7 +5,7 @@ import {LinkModel} from "../../models/LinkModels";
 const Link: React.FC<LinkModel> = (link) => {
     const tags = link.tags.map(tag => {
         return (<span key={tag} style={{"fontSize": "20px"}}>
-                    <NavLink className="badge badge-primary" to={`/links?tag=${tag}`}>
+                    <NavLink className="badge bg-primary" to={`/links?tag=${tag}`}>
                         {tag}
                     </NavLink>
                 &nbsp;
