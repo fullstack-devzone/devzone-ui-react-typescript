@@ -23,11 +23,6 @@ const App = () => (
                 </Route>
             </Switch>
         </main>
-        <footer className="footer">
-            <div className="container">
-                <p className="text-center">SivaLabs &copy; 2022</p>
-            </div>
-        </footer>
     </div>
 );
 

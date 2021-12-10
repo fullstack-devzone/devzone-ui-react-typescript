@@ -1,6 +1,16 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import {
+    Collapse, DropdownItem, DropdownMenu,
+    DropdownToggle,
+    Nav,
+    Navbar,
+    NavbarBrand,
+    NavbarToggler,
+    NavItem,
+    NavLink,
+    UncontrolledDropdown
+} from "reactstrap";
 import AuthService from "../../services/AuthService";
+import React from "react";
 
 const NavBar = () => {
     const authService = new AuthService()
@@ -13,63 +23,59 @@ const NavBar = () => {
     let authenticatedLinks;
     const user = authService.getCurrentUser();
     if (user.access_token) {
-        authenticatedLinks = (
-            <ul className="navbar-nav mb-2 mb-md-0">
-                <li className="nav-item">
-                    <NavLink className="nav-link" to="/links/new">
-                        <i className="fas fa-plus-circle"/> Add Link
-                    </NavLink>
-                </li>
-                <li className="nav-item dropdown">
-                    <NavLink className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i className="fas fa-user"/> <span>{user.user.name}</span>
-                    </NavLink>
-                    <div className="dropdown-menu">
-                        <NavLink className="dropdown-item" to="/logout" onClick={logoutHandler}>
-                            <i className="fas fa-sign-out-alt"/> Logout
-                        </NavLink>
-                    </div>
-                </li>
-            </ul>
-        );
+        authenticatedLinks = (<Nav className="" navbar>
+            <NavItem>
+                <NavLink href="/links/new">
+                    <i className="fas fa-plus-circle"/> Add Link
+                </NavLink>
+            </NavItem>
+
+            <UncontrolledDropdown inNavbar nav>
+                <DropdownToggle caret nav>
+                    <i className="fas fa-user"/> <span>{user.user.name}</span>
+                </DropdownToggle>
+                <DropdownMenu right>
+                    <DropdownItem onClick={logoutHandler}>
+                        <i className="fas fa-sign-out-alt"/> Logout
+                    </DropdownItem>
+                </DropdownMenu>
+            </UncontrolledDropdown>
+        </Nav>);
     } else {
-        authenticatedLinks = (
-            <ul className="navbar-nav mb-2 mb-md-0">
-                <li className="nav-item">
-                    <NavLink className="nav-link" to="/login">
-                        Login
-                    </NavLink>
-                </li>
-                <li className="nav-item">
-                    <NavLink className="nav-link" to="/registration">
-                        Register
-                    </NavLink>
-                </li>
-            </ul>
-        );
+        authenticatedLinks = (<Nav className="" navbar>
+            <NavItem>
+                <NavLink href="/login">
+                    Login
+                </NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink href="/registration">
+                    Register
+                </NavLink>
+            </NavItem>
+        </Nav>);
     }
     return (
-        <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
-            <div className="container">
-                <NavLink className="navbar-brand" to="/">
+        <div>
+            <Navbar
+                color="primary"
+                container="xl"
+                dark
+                expand="md"
+                fixed="top"
+                full
+                light>
+                <NavbarBrand href="/">
                     DevZone
-                </NavLink>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-
-                <div className="collapse navbar-collapse" id="navbarCollapse">
-                    <ul className="navbar-nav me-auto mb-2 mb-md-0">
-
-                    </ul>
+                </NavbarBrand>
+                <NavbarToggler onClick={function noRefCheck() {
+                }}/>
+                <Collapse navbar>
+                    <Nav className="me-auto"/>
                     {authenticatedLinks}
-                </div>
-            </div>
-        </nav>
-    );
-};
+                </Collapse>
+            </Navbar>
+        </div>);
+}
 
 export default NavBar;
