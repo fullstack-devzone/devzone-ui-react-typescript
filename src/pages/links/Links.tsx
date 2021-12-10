@@ -27,10 +27,6 @@ const Links : React.FC<LinksProps> = (props ) => {
     let tag = queryParams.get('tag') || "";
     let query = queryParams.get('query') || "";
 
-    //console.log("page:", page)
-    //console.log("query:", query)
-    //console.log("tag:", tag)
-
     const initialValue: LinksModel = {
         hasNext: false,
         hasPrevious: false,

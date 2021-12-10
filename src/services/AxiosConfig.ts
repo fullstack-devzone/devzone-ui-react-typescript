@@ -10,7 +10,7 @@ instance.defaults.baseURL = apiUrl;
 
 instance.interceptors.request.use(function(config) {
     const accessToken = getAccessToken();
-    if (!config.headers.Authorization && accessToken) {
+    if (config.headers !== undefined && !config.headers.Authorization && accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
