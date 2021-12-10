@@ -3,7 +3,7 @@ import classNames from "classnames";
 import {NavLink} from "react-router-dom";
 import {LinksPaginationModel} from "../../models/LinkModels";
 
-const Pagination: React.FC<LinksPaginationModel> = (linksPagination) => {
+const Pagination: React.FC<LinksPaginationModel> = (linksPagination) : JSX.Element => {
     let links = linksPagination.links
     let firstPageUrl = "/links?page=1";
     let prevPageUrl = `/links?page=${links.pageNumber-1}`;
