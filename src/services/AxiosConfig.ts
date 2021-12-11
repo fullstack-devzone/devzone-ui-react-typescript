@@ -21,13 +21,16 @@ instance.interceptors.response.use(
         return response;
     },
     function(error) {
-        console.log(error);
-        if (error.response.status === 401 || error.response.status === 403) {
+        console.log("Interceptor Error: ",error, error.response);
+        if (error.config.url !== '/auth/login' && error.response.status === 401) {
             cleanState();
             window.location.href = "/login";
-        } else {
-            return Promise.reject(error);
         }
+        if (error.response.status === 403) {
+            cleanState();
+            window.location.href = "/login";
+        }
+        return Promise.reject(error);
     }
 );
 

@@ -1,76 +1,100 @@
 import React, {useState} from "react";
 import LinkService from "../../services/LinkService";
 import {LinkModel} from "../../models/LinkModels";
+import { useHistory} from "react-router-dom";
+import {Formik, Form, Field, FormikHelpers, ErrorMessage} from "formik";
+import * as Yup from 'yup';
+
+interface NewLinkFormValues {
+    title: string;
+    url: string;
+    tags: string;
+}
 
 const NewLink = () => {
+    const history = useHistory();
     const linkService = new LinkService();
-    let linkModel: LinkModel = {id: 0, tags: [], title: "", url: ""};
-    const [newLink, setNewLink] = useState(linkModel);
-    const [tags, setTags] = useState("");
 
-    const handleCreateLink = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!newLink.title.trim() || !newLink.url.trim()) {
-            return;
-        }
-        if ( tags !== "") {
-            let linkTags = tags.split(",")
-            console.log("linkTags", linkTags)
-            newLink.tags = linkTags
-        }
-        linkService.createLink(newLink)
+    const [errorMsg, setErrorMsg] = useState<string| null>(null);
+    const initialValues: NewLinkFormValues = {
+        title: "",
+        url: "",
+        tags: ""
+    };
+
+    const validationSchema = Yup.object().shape({
+        url: Yup.string().required('Required').url("Invalid URL")
+    });
+
+    const onSubmit = (values: NewLinkFormValues, helpers: FormikHelpers<NewLinkFormValues>) => {
+        let linkTags = values.tags.split(",")
+        let linkModel: LinkModel = {id: 0, tags: linkTags, title: values.title, url: values.url};
+        linkService.createLink(linkModel)
             .then((response) => {
                 console.log("create link success", response);
-                window.location.href = "/";
+                history.push("/links");
             })
             .catch(e => {
                 console.log("create link error", e);
-                alert('Failed to create link, try again')
-            });
+                setErrorMsg('Failed to create link, try again')
+            })
+            .finally(()=> helpers.setSubmitting(false));
     };
 
     return (
-        <div className="container col-md-6">
+        <div className="container col-md-4">
             <div className="card">
                 <div className="card-header text-center">
                     <h3>New Link Form</h3>
                 </div>
                 <div className="card-body">
-                    <form onSubmit={e => handleCreateLink(e)}>
-                        <div className="mb-3">
-                            <label htmlFor="title" className="form-label">Title</label>
-                            <input
-                                id="title"
-                                className="form-control col-md-12"
-                                value={newLink.title}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewLink({...newLink, title: e.target.value})}
-                            />
-
-                        </div>
+                    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                        {({ handleSubmit,  errors, touched, isValidating }) => (
+                            <Form onSubmit={(e) => {
+                                e.preventDefault();
+                                handleSubmit();
+                            }}>
                         <div className="mb-3">
                             <label htmlFor="url" className="form-label">URL</label>
-                            <input
+                            <Field
                                 id="url"
-                                className="form-control col-md-12"
-                                value={newLink.url}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewLink({...newLink, url: e.target.value})}
+                                name="url"
+                                type="text"
+                                className={`form-control col-md-12 ${errors.url && touched.url ? "is-invalid" : "null"}`}
                             />
+                            <ErrorMessage name={'url'} component={'div'} className={'invalid-feedback'}/>
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="tags" className="form-label">Tags</label>
-                            <input
-                                id="tags"
-                                className="form-control col-md-12"
-                                value={tags}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTags(e.target.value)}
+                            <label htmlFor="title" className="form-label">Title</label>
+                            <Field
+                                id="title"
+                                name="title"
+                                type="text"
+                                className={`form-control col-md-12 ${errors.title && touched.title ? "is-invalid" : "null"}`}
                             />
+                            <ErrorMessage name={'title'} component={'div'} className={'invalid-feedback'}/>
+
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="tags" className="form-label">Tags</label>
+                            <Field
+                                id="tags"
+                                name="tags"
+                                type="text"
+                                className={`form-control col-md-12 ${errors.tags && touched.tags ? "is-invalid" : "null"}`}
+                            />
+                            <ErrorMessage name={'tags'} component={'div'} className={'invalid-feedback'}/>
                         </div>
                         <div className="mb-3">
                             <button type="submit" className="btn btn-primary">
                                 Save
                             </button>
                         </div>
-                    </form>
+                        {errorMsg ? <div className={'alert alert-danger'}>{errorMsg}</div>: null}
+                        </Form>
+                        )}
+                    </Formik>
                 </div>
             </div>
         </div>

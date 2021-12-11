@@ -1,27 +1,39 @@
 import React, {useState} from "react";
+import {Formik, Form, Field, FormikHelpers, ErrorMessage} from "formik";
+import * as Yup from 'yup';
 import AuthService from "../../services/AuthService";
+
+interface LoginFormValues {
+    username: string;
+    password: string;
+}
 
 const Login = () => {
     const authService = new AuthService();
+    const [errorMsg, setErrorMsg] = useState<string| null>(null);
+    const initialValues: LoginFormValues = {
+        username: "",
+        password: ""
+    };
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-
-    const handleLogin = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!username.trim() || !password.trim()) {
-            return;
-        }
-        authService.performLogin({username: username, password: password})
+    const onSubmit = (values: LoginFormValues, helpers: FormikHelpers<LoginFormValues>) => {
+        authService.performLogin(values)
             .then((response) => {
                 console.log("login success", response);
                 window.location.href = "/";
             })
             .catch(e => {
                 console.log("login error", e);
-                alert('Failed to login, try again')
-            });
+                //alert('Failed to login, try again')
+                setErrorMsg('Failed to login, try again')
+            })
+            .finally(()=> helpers.setSubmitting(false));
     };
+
+    const validationSchema = Yup.object().shape({
+        username: Yup.string().email("Invalid email").required('Required'),
+        password: Yup.string().required('Required')
+    });
 
     return (
         <div className="container col-md-4">
@@ -30,33 +42,42 @@ const Login = () => {
                     <h3>Login Form</h3>
                 </div>
                 <div className="card-body">
-                    <form onSubmit={e => handleLogin(e)} >
-                        <div className="mb-3">
-                            <label htmlFor="email" className="form-label">Email</label>
-                            <input
-                                id="email"
-                                type="email"
-                                className="form-control col-md-12"
-                                value={username}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="password" className="form-label">Password</label>
-                            <input
-                                id="password"
-                                className="form-control col-md-12"
-                                type="password"
-                                value={password}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <button type="submit" className="btn btn-primary">
-                                Login
-                            </button>
-                        </div>
-                    </form>
+
+                    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                        {({ handleSubmit,  errors, touched, isValidating }) => (
+                        <Form onSubmit={(e) => {
+                            e.preventDefault();
+                            handleSubmit();
+                        }}>
+                            <div className="mb-3">
+                                <label htmlFor="username" className="form-label">Email</label>
+                                <Field
+                                    id="username"
+                                    name="username"
+                                    type="email"
+                                    className={`form-control col-md-12 ${errors.username && touched.username ? "is-invalid" : "null"}`}
+                                />
+                                <ErrorMessage name={'username'} component={'div'} className={'invalid-feedback'}/>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="password" className="form-label">Password</label>
+                                <Field
+                                    id="password"
+                                    name="password"
+                                    className={`form-control col-md-12 ${errors.password && touched.password ? "is-invalid" : "null"}`}
+                                    type="password"
+                                />
+                                <ErrorMessage name={'password'} component={'div'} className={'invalid-feedback'}/>
+                            </div>
+                            <div className="mb-3">
+                                <button type="submit" className="btn btn-primary">
+                                    Login
+                                </button>
+                            </div>
+                            {errorMsg ? <div className={'alert alert-danger'}>{errorMsg}</div>: null}
+                        </Form>
+                        )}
+                    </Formik>
                 </div>
             </div>
         </div>
