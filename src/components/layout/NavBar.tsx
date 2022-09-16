@@ -34,7 +34,7 @@ const NavBar = () => {
                 <DropdownToggle caret nav>
                     <i className="fas fa-user"/> <span>{user.user.name}</span>
                 </DropdownToggle>
-                <DropdownMenu right>
+                <DropdownMenu end>
                     <DropdownItem onClick={logoutHandler}>
                         <i className="fas fa-sign-out-alt"/> Logout
                     </DropdownItem>
@@ -63,7 +63,6 @@ const NavBar = () => {
                 dark
                 expand="md"
                 fixed="top"
-                full
                 light>
                 <NavbarBrand href="/">
                     DevZone
