@@ -1,10 +1,10 @@
 import React from "react";
 import {Route, Switch, Redirect} from "react-router-dom";
-import Links from "./pages/links/Links";
+import Posts from "./pages/posts/Posts";
 import Login from "./pages/login/Login";
 import Registration from "./pages/registration/Registration";
 import NavBar from "./components/layout/NavBar";
-import NewLink from "./pages/links/NewLink";
+import NewPost from "./pages/posts/NewPost";
 import NotFound from "./pages/error/NotFound";
 
 const App = () => (
@@ -14,10 +14,10 @@ const App = () => (
             <Switch>
                 <Route path="/login" component={Login}/>
                 <Route path="/registration" component={Registration}/>
-                <Route path="/links/new" component={NewLink}/>
+                <Route path="/posts/new" component={NewPost}/>
 
-                <Route path="/links" component={Links} />
-                <Redirect exact path="/" to="/links"/>
+                <Route path="/posts" component={Posts} />
+                <Redirect exact path="/" to="/posts"/>
                 <Route path="*">
                     <NotFound />
                 </Route>

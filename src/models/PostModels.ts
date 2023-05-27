@@ -1,13 +1,13 @@
 
-export interface LinkModel {
+export interface PostModel {
     id: number,
     title: string,
     url: string,
-    tags: string[]
+    content: string
 }
 
-export interface LinksModel {
-    data: LinkModel[],
+export interface PostsModel {
+    data: PostModel[],
     totalElements: number,
     pageNumber: number,
     totalPages: number,
@@ -17,9 +17,8 @@ export interface LinksModel {
     hasPrevious: boolean;
 }
 
-export interface LinksPaginationModel {
-    tag?: string
+export interface PostsPaginationModel {
     query?: string
     page?: number
-    links: LinksModel
+    posts: PostsModel
 }

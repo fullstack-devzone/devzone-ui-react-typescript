@@ -25,8 +25,8 @@ const NavBar = () => {
     if (user.access_token) {
         authenticatedLinks = (<Nav className="" navbar>
             <NavItem>
-                <NavLink href="/links/new">
-                    <i className="fas fa-plus-circle"/> Add Link
+                <NavLink href="/posts/new">
+                    <i className="fas fa-plus-circle"/> Add Post
                 </NavLink>
             </NavItem>
 

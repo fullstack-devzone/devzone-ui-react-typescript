@@ -1,55 +1,48 @@
 import React from "react";
 import classNames from "classnames";
 import {NavLink} from "react-router-dom";
-import {LinksPaginationModel} from "../../models/LinkModels";
+import {PostsPaginationModel} from "../../models/PostModels";
 
-const Pagination: React.FC<LinksPaginationModel> = (linksPagination) : JSX.Element => {
-    let links = linksPagination.links
-    let firstPageUrl = "/links?page=1";
-    let prevPageUrl = `/links?page=${links.pageNumber-1}`;
-    let nextPageUrl = `/links?page=${links.pageNumber+1}`;
-    let lastPageUrl = `/links?page=${links.totalPages}`;
+const Pagination: React.FC<PostsPaginationModel> = (postsPagination) : JSX.Element => {
+    let posts = postsPagination.posts
+    let firstPageUrl = "/posts?page=1";
+    let prevPageUrl = `/posts?page=${posts.pageNumber-1}`;
+    let nextPageUrl = `/posts?page=${posts.pageNumber+1}`;
+    let lastPageUrl = `/posts?page=${posts.totalPages}`;
 
-    if(linksPagination.tag) {
-        firstPageUrl += `&tag=${linksPagination.tag}`;
-        prevPageUrl += `&tag=${linksPagination.tag}`;
-        nextPageUrl += `&tag=${linksPagination.tag}`;
-        lastPageUrl += `&tag=${linksPagination.tag}`;
-    }
-
-    if(linksPagination.query) {
-        firstPageUrl += `&query=${linksPagination.query}`;
-        prevPageUrl += `&query=${linksPagination.query}`;
-        nextPageUrl += `&query=${linksPagination.query}`;
-        lastPageUrl += `&query=${linksPagination.query}`;
+    if(postsPagination.query) {
+        firstPageUrl += `&query=${postsPagination.query}`;
+        prevPageUrl += `&query=${postsPagination.query}`;
+        nextPageUrl += `&query=${postsPagination.query}`;
+        lastPageUrl += `&query=${postsPagination.query}`;
     }
 
     return (
         <div>
-            { links.totalPages > 1 &&
+            { posts.totalPages > 1 &&
                 <nav aria-label="Page navigation">
                 <ul className="pagination pagination justify-content-center">
                     <li className={classNames({
                         "page-item": true,
-                        disabled: !links.hasPrevious
+                        disabled: !posts.hasPrevious
                     })}>
                         <NavLink className="page-link" to={`${firstPageUrl}`}>First</NavLink>
                     </li>
                     <li className={classNames({
                         "page-item": true,
-                        disabled: !links.hasPrevious
+                        disabled: !posts.hasPrevious
                     })}>
                         <NavLink className="page-link" to={`${prevPageUrl}`}>Previous</NavLink>
                     </li>
                     <li className={classNames({
                         "page-item": true,
-                        disabled: !links.hasNext
+                        disabled: !posts.hasNext
                     })}>
                         <NavLink className="page-link" to={`${nextPageUrl}`}>Next</NavLink>
                     </li>
                     <li className={classNames({
                         "page-item": true,
-                        disabled: !links.hasNext
+                        disabled: !posts.hasNext
                     })}>
                         <NavLink className="page-link" to={`${lastPageUrl}`}>Last</NavLink>
                     </li>

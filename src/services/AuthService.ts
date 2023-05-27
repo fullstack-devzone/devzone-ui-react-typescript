@@ -15,7 +15,7 @@ export interface UserModel {
 export default class AuthService {
 
     performLogin = (credentials: {}) => {
-        return axios.post("/auth/login", credentials)
+        return axios.post("/login", credentials)
             .then(response => {
                 console.log("auth success: ", response);
                 this.setCurrentUser(response.data);

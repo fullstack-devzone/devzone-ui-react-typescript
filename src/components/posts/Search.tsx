@@ -11,12 +11,19 @@ const Search : React.FC<SearchProps>= ( props ) => {
         <div className={'pb-2'}>
             <form className="row g-3 align-items-center">
                 <div className="col">
-                    <input className="col-md-12 form-control" type="search" name="query" placeholder="Search for"
+                    <input className="col-md-12 form-control"
+                           type="search"
+                           name="query"
+                           placeholder="Enter search keyword"
                            value={query}
                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}/>
                 </div>
                 <div className="col-auto">
-                    <button className="btn btn-primary btn" type="button" onClick={(e) => props.ClickHandler(query)}>Search</button>
+                    <button className="btn btn-primary btn"
+                            type="button"
+                            onClick={(e) => props.ClickHandler(query)}>
+                        Search
+                    </button>
                 </div>
             </form>
         </div>
