@@ -21,30 +21,34 @@ const Pagination: React.FC<PostsPaginationModel> = (postsPagination) : JSX.Eleme
         <div>
             { posts.totalPages > 1 &&
                 <nav aria-label="Page navigation">
-                <ul className="pagination pagination justify-content-center">
+                <ul className="pagination justify-content-center">
                     <li className={classNames({
                         "page-item": true,
                         disabled: !posts.hasPrevious
                     })}>
-                        <NavLink className="page-link" to={`${firstPageUrl}`}>First</NavLink>
+                        <NavLink className="page-link" isActive={() => false}
+                                 to={`${firstPageUrl}`}>First</NavLink>
                     </li>
                     <li className={classNames({
                         "page-item": true,
                         disabled: !posts.hasPrevious
                     })}>
-                        <NavLink className="page-link" to={`${prevPageUrl}`}>Previous</NavLink>
+                        <NavLink className="page-link" isActive={() => false}
+                                 to={`${prevPageUrl}`}>Previous</NavLink>
                     </li>
                     <li className={classNames({
                         "page-item": true,
                         disabled: !posts.hasNext
                     })}>
-                        <NavLink className="page-link" to={`${nextPageUrl}`}>Next</NavLink>
+                        <NavLink className="page-link" isActive={() => false}
+                                 to={`${nextPageUrl}`}>Next</NavLink>
                     </li>
                     <li className={classNames({
                         "page-item": true,
                         disabled: !posts.hasNext
                     })}>
-                        <NavLink className="page-link" to={`${lastPageUrl}`}>Last</NavLink>
+                        <NavLink className="page-link" isActive={() => false}
+                                 to={`${lastPageUrl}`}>Last</NavLink>
                     </li>
                 </ul>
             </nav>
