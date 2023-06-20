@@ -1,16 +1,6 @@
-import {
-    Collapse, DropdownItem, DropdownMenu,
-    DropdownToggle,
-    Nav,
-    Navbar,
-    NavbarBrand,
-    NavbarToggler,
-    NavItem,
-    NavLink,
-    UncontrolledDropdown
-} from "reactstrap";
 import AuthService from "../../services/AuthService";
 import React from "react";
+import {NavLink} from "react-router-dom";
 
 const NavBar = () => {
     const authService = new AuthService()
@@ -23,58 +13,59 @@ const NavBar = () => {
     let authenticatedLinks;
     const user = authService.getCurrentUser();
     if (user.access_token) {
-        authenticatedLinks = (<Nav className="" navbar>
-            <NavItem>
-                <NavLink href="/posts/new">
+        authenticatedLinks = (<>
+            <li className="nav-item" >
+                <NavLink className="nav-link" to="/posts/new" >
                     <i className="fas fa-plus-circle"/> Add Post
                 </NavLink>
-            </NavItem>
-
-            <UncontrolledDropdown inNavbar nav>
-                <DropdownToggle caret nav>
+            </li>
+            <li className="nav-item" >
+                <button className="btn nav-link">
                     <i className="fas fa-user"/> <span>{user.user.name}</span>
-                </DropdownToggle>
-                <DropdownMenu end>
-                    <DropdownItem onClick={logoutHandler}>
-                        <i className="fas fa-sign-out-alt"/> Logout
-                    </DropdownItem>
-                </DropdownMenu>
-            </UncontrolledDropdown>
-        </Nav>);
+                </button>
+            </li>
+            <li className="nav-item" >
+                <button className="btn nav-link" onClick={logoutHandler}>
+                    <i className="fas fa-sign-out-alt"/> Logout
+                </button>
+            </li>
+        </>);
     } else {
-        authenticatedLinks = (<Nav className="" navbar>
-            <NavItem>
-                <NavLink href="/login">
+        authenticatedLinks = (
+            <>
+            <li className="nav-item">
+                <NavLink className="nav-link" to="/login" >
                     Login
                 </NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink href="/registration">
-                    Register
+            </li>
+            <li className="nav-item">
+                <NavLink className="nav-link" to="/registration" >
+                    Registration
                 </NavLink>
-            </NavItem>
-        </Nav>);
+            </li>
+            </>
+        );
     }
     return (
-        <div>
-            <Navbar
-                color="primary"
-                container="xl"
-                dark
-                expand="md"
-                fixed="top"
-                light>
-                <NavbarBrand href="/">
-                    DevZone
-                </NavbarBrand>
-                <NavbarToggler onClick={function noRefCheck() {
-                }}/>
-                <Collapse navbar>
-                    <Nav className="me-auto"/>
-                    {authenticatedLinks}
-                </Collapse>
-            </Navbar>
-        </div>);
+        <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div className="container">
+                <a className="navbar-brand" href="/">DevZone</a>
+                <button className="navbar-toggler" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul className="navbar-nav ms-auto">
+                        {authenticatedLinks}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        );
 }
 
 export default NavBar;
